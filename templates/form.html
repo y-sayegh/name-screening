@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Name Transliteration and Screening</title>
+</head>
+<body>
+    <h1>Data.txn Form</h1>
+    <form method="post">
+        <label for="base_url">Base URL:</label>
+        <input type="text" id="base_url" name="base_url" required value ="https://teal.internaldemo.netreveal.host:8443" size="50"><br><br>
+        <label for="sequence">Sequence:</label>
+        <input type="text" id="sequence" name="sequence" required value ="WLMAGS_Subject_RT_REST" size="50"><br><br>
+        <hr>
+        <label for="subject_name">Subject Name:</label>
+        <input type="text" id="subject_name" name="subject_original_name" required><br><br>
+        <!-- Add other fields here -->
+        <button type="submit">Submit</button>
+    </form>
+    {% if translation %}
+        <h2>Transliteration</h2>
+        <p><b>Name:</b> {{ original_name}}</p>
+        <p><b>Transliterated name:</b> {{ translation }}</p>
+    {% endif %}
+    {% if response_body %}
+        <h2>NetReveal Response:</h2>
+        <pre>{{ response_body }}</pre>
+    {% endif %}
+    </body>
+</html>
