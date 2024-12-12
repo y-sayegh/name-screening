@@ -53,6 +53,8 @@ def form():
     translation = None
     response_body = None
     new_xml = None
+    subject_name = None
+    pretty_xml =None
     if request.method == 'POST':
         form_data = request.form.to_dict()
         subject_name = form_data.get("subject_original_name")
