@@ -117,4 +117,4 @@ def form():
     return render_template('form.html', original_name = subject_name ,translation = translation, response_body=pretty_xml)
    
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=50001)

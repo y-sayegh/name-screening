@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/b45c92a7-3ba4-4d19-aa53-374c7b39ce8d/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/nr-names-screening",
+    "appService.deploySubpath": "."
+}
