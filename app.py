@@ -103,18 +103,19 @@ def form():
         x= ET.fromstring (response_body)
         value_elem = x.findall(".//value")
         # Remove CDATA if necessary
-        if len(value_elem) > 1 : 
+        
+        if len(value_elem) >= 1 : 
             if value_elem[0].text.strip()=="NOHIT" :
                 response_body = "No Hit!"
             elif value_elem[0].text.strip()=="HIT":
                 response_body = value_elem[2].text.strip()
                 
                 parsed_string = minidom.parseString(response_body)
-                pretty_xml = parsed_string.toprettyxml(indent="  ")
+                response_body = parsed_string.toprettyxml(indent="  ")
             else :
                 response_body = "No reply"
                
-    return render_template('form.html', original_name = subject_name ,translation = translation, response_body=pretty_xml)
+    return render_template('form.html', original_name = subject_name ,translation = translation, response_body=response_body)
    
 if __name__ == '__main__':
     app.run(port=50001)
