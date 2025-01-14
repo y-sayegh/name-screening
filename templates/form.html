@@ -23,7 +23,7 @@
     {% endif %}
     {% if response_body %}
         <h2>NetReveal Response:</h2>
-        <pre>{{ response_body }}</pre>
+        {{ response_body|safe }}
     {% endif %}
     </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template,render_template_string, request, jsonify
 import requests
 import xml.etree.ElementTree as ET
 from io import BytesIO
@@ -46,6 +46,59 @@ def create_xml(data):
     
     return pretty_xml
    
+def generate_html_table(xml_string):
+    # Parse the XML string
+    root = ET.fromstring(xml_string)
+    
+    # Start building the HTML table
+    html = '<table border="1">'
+    html += '''
+    <tr>
+        <th>Match ID</th>
+        <th>List Name</th>
+        <th>Row ID</th>
+        <th>Reason</th>
+        <th>Score</th>
+        <th>Input</th>
+        <th>Field Value</th>
+        <th>Datasource Field Name</th>
+        <th>Match Type Description</th>
+    </tr>
+    '''
+    
+    # Iterate over <matches> elements
+    for matches in root.findall(".//matches"):
+        for match in matches.findall("match"):
+            match_id = match.find("id").text
+            list_name = match.find("listName").text
+            row_id = match.find("rowId").text
+            reason = match.find("reason").text
+            score = match.find("score").text
+            
+            # Iterate over matchDataItems
+            for match_data_item in match.findall(".//matchDataItem"):
+                input_value = match_data_item.find("input").text.strip()
+                field_value = match_data_item.find("fieldValue").text.strip()
+                datasource_field_name = match_data_item.find("datasourceFieldName").text
+                match_type_desc = match_data_item.find("matchTypeDescription").text.replace(".", " ")
+                
+                # Add a row for each matchDataItem
+                html += f'''
+                <tr>
+                    <td>{match_id}</td>
+                    <td>{list_name}</td>
+                    <td>{row_id}</td>
+                    <td>{reason}</td>
+                    <td>{score}</td>
+                    <td>{input_value}</td>
+                    <td>{field_value}</td>
+                    <td>{datasource_field_name}</td>
+                    <td>{match_type_desc}</td>
+                </tr>
+                '''
+    
+    html += '</table>'
+    return html
 
 @app.route('/', methods=['GET', 'POST'])
 def form():
@@ -112,10 +165,11 @@ def form():
                 
                 parsed_string = minidom.parseString(response_body)
                 response_body = parsed_string.toprettyxml(indent="  ")
+                response_body = generate_html_table (response_body)
             else :
                 response_body = "No reply"
                
-    return render_template('form.html', original_name = subject_name ,translation = translation, response_body=response_body)
+    return render_template ('form.html', original_name = subject_name ,translation = translation, response_body=response_body)
    
 if __name__ == '__main__':
     app.run(port=50001)
