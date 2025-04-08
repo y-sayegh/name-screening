@@ -25,5 +25,9 @@
         <h2>NetReveal Response:</h2>
         {{ response_body|safe }}
     {% endif %}
+    {% if xml1 %}
+        <h2>NetReveal message:</h2>
+        {{ xml1 }}
+    {% endif %}
     </body>
 </html>

@@ -169,7 +169,7 @@ def form():
             else :
                 response_body = "No reply"
                
-    return render_template ('form.html', original_name = subject_name ,translation = translation, response_body=response_body)
+    return render_template ('form.html', original_name = subject_name ,translation = translation, response_body=response_body, xml1 = new_xml)
    
 if __name__ == '__main__':
     app.run(port=50001)
