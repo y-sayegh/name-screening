@@ -16,6 +16,8 @@ The **Name Screening Application** is a Flask-based web application designed to 
 - **User-Friendly UI**: Built with Bootstrap for a clean and responsive design.
 
 ## Prerequisites
+- NetReveal environment
+- Microsoft Azure Tranlation service (details on how to set up this service can be found [Microsoft Azure Names Transliteration](https://netreveal.atlassian.net/wiki/x/NoBGJQ)
 - Python 3.7 or higher
 - Flask
 - Required Python libraries:
