@@ -1,33 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Name Transliteration and Screening</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Screening</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .form-section {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .result-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .table {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Name Transliteration and Screening form</h1>
-    <form method="post">
-        <label for="base_url">Base URL:</label>
-        <input type="text" id="base_url" name="base_url" required value ="https://teal.internaldemo.netreveal.host:8443" size="50"><br><br>
-        <label for="sequence">Sequence:</label>
-        <input type="text" id="sequence" name="sequence" required value ="WLMAGS_Subject_RT_REST" size="50"><br><br>
-        <hr>
-        <label for="subject_name">Subject Name:</label>
-        <input type="text" id="subject_name" name="subject_original_name" required><br><br>
-        <!-- Add other fields here -->
-        <button type="submit">Submit</button>
-    </form>
-    {% if translation %}
-        <h2>Transliteration</h2>
-        <p><b>Name:</b> {{ original_name}}</p>
-        <p><b>Transliterated name:</b> {{ translation }}</p>
-    {% endif %}
-    {% if response_body %}
-        <h2>NetReveal Response:</h2>
-        {{ response_body|safe }}
-    {% endif %}
-    {% if xml1 %}
-        <h2>NetReveal message:</h2>
-        {{ xml1 }}
-    {% endif %}
-    </body>
+    <div class="container">
+        <h1 class="text-center">Name Screening Application</h1>
+        <div class="form-section">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="subject_original_name" class="form-label">Original Name</label>
+                    <input type="text" class="form-control" id="subject_original_name" name="subject_original_name" placeholder="Enter the original name" value="{{ request.form.subject_original_name }}"  required>
+                </div>
+                <div class="mb-3">
+                    <label for="base_url" class="form-label">Base URL</label>
+                    <input type="url" class="form-control" id="base_url" name="base_url" placeholder="Enter the base URL" required>
+                </div>
+                <div class="mb-3">
+                    <label for="sequence" class="form-label">Sequence</label>
+                    <input type="text" class="form-control" id="sequence" name="sequence" placeholder="Enter the sequence" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+        </div>
+
+        {% if original_name %}
+        <div class="result-section">
+            <h3>Results</h3>
+            <p><strong>Original Name:</strong> {{ original_name }}</p>
+            <p><strong>Translated Name:</strong> {{ translation }}</p>
+            {% if xml1 %}
+            <h5>Generated XML:</h5>
+            <pre>{{ xml1 }}</pre>
+            {% endif %}
+            {% if response_body %}
+            <h5>Response:</h5>
+            <div>{{ response_body|safe }}</div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
