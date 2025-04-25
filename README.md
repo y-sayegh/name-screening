@@ -1,0 +1,33 @@
+# Name Screening Application
+
+## Overview
+The **Name Screening Application** is a Flask-based web application designed to process and screen names using the Microsoft Translator API and NetReveal APIs. It allows users to input a name, translate it, generate an XML payload, and send it to an external service for further processing. The application displays the results in a user-friendly format, including a detailed HTML table for matches.
+
+## Features
+- **Name Translation**: Translates the input name to English using the Microsoft Translator API.
+- **XML Generation**: Dynamically generates an XML payload based on user input.
+- **API Integration**:
+  - Retrieves an access token from the NetReveal API.
+  - Sends the generated XML to the NetReveal `processMessage` API.
+- **Result Display**:
+  - Displays the translated name.
+  - Shows the generated XML.
+  - Presents the API response in a structured HTML table format.
+- **User-Friendly UI**: Built with Bootstrap for a clean and responsive design.
+
+## Prerequisites
+- Python 3.7 or higher
+- Flask
+- Required Python libraries:
+  - `requests`
+  - `xml.etree.ElementTree`
+  - `minidom`
+- Environment variables:
+  - `TRANSLATOR_SUBSCRIPTION_KEY`: Your Microsoft Translator API subscription key.
+  - `TRANSLATOR_REGION`: The region for your Microsoft Translator API (e.g., `uaenorth`).
+
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/name-screening.git
+   cd name-screening
